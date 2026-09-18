@@ -190,15 +190,6 @@ footer{
   .produce-band{max-height:38px}
 }
 
-.tabs-bar{background:var(--forest-deep);padding:10px 20px 14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.tabs{display:flex;gap:8px;max-width:920px;margin:0 auto;flex-wrap:nowrap}
-.tab-btn{
-  background:rgba(255,255,255,.12);color:#F3EFDD;border:1px solid rgba(255,255,255,.22);
-  border-radius:20px;padding:8px 16px;font-size:13.5px;font-weight:600;cursor:pointer;
-  font-family:'Work Sans',sans-serif;white-space:nowrap;transition:background .15s ease;
-}
-.tab-btn:hover{background:rgba(255,255,255,.22)}
-.tab-btn.active{background:var(--turmeric);color:var(--forest-deep);border-color:var(--turmeric)}
 .view{display:none}
 .view.active{display:block}
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:6px 0 4px}
@@ -320,7 +311,7 @@ body{background:radial-gradient(circle at 85% 0%,#edf1e2 0,transparent 35%),var(
 <div id="view-dashboard" class="view">
   <div class="hero-wrap"><div><div class="eyebrow">Workspace overview</div><h2>Good to see you back. 👋</h2><p>Keep recipes, production quantities and costs in one place.</p></div><div class="hero-actions"><button class="btn primary" onclick="showView('products');showAdd()">＋ New Product</button><button class="btn light" onclick="showView('calculator')">Calculate Batch</button></div></div>
   <div class="dashboard-grid" id="smartMetrics"><div class="metric"><div class="metric-label">Products</div><div class="metric-value" id="smartProducts">—</div><div class="metric-note">Saved in your workspace</div></div><div class="metric"><div class="metric-label">Recipes</div><div class="metric-value" id="smartRecipes">—</div><div class="metric-note">Production formulas</div></div><div class="metric"><div class="metric-label">Price coverage</div><div class="metric-value" id="smartCoverage">—</div><div class="metric-note">Ingredients with pricing</div></div><div class="metric"><div class="metric-label">Team access</div><div class="metric-value" id="smartRole">—</div><div class="metric-note">Current workspace role</div></div></div>
-  <div class="panel-grid" style="margin-bottom:18px"><section class="panel"><div class="panel-head"><h3>Start something</h3><span>Common actions</span></div><div class="action-grid"><button class="action-tile" onclick="showView('products');showAdd()"><b>＋ Add a product</b><span>Create a reusable recipe formula</span></button><button class="action-tile" onclick="showView('calculator')"><b>∑ Scale a batch</b><span>Calculate exact ingredient needs</span></button><button class="action-tile owner-only" onclick="showView('prices')"><b>₹ Update ingredient prices</b><span>Keep costing accurate</span></button><button class="action-tile owner-only" onclick="showView('cost')"><b>◫ Calculate production cost</b><span>Labour, packaging and more</span></button></div></section><section class="panel"><div class="panel-head"><h3>Workspace health</h3><span>Live</span></div><div class="status-list"><div class="status-row"><span><i class="status-dot"></i>Cloud data</span><span class="status-ok">Connected</span></div><div class="status-row"><span><i class="status-dot"></i>Product library</span><span class="status-ok">Ready</span></div><div class="status-row"><span><i class="status-dot"></i>Recipe engine</span><span class="status-ok">Ready</span></div><div class="status-row"><span><i class="status-dot"></i>Access control</span><span class="status-ok" id="healthRole">Active</span></div></div></section></div>
+  <div class="panel-grid" style="margin-bottom:18px;grid-template-columns:1fr"><section class="panel"><div class="panel-head"><h3>Workspace health</h3><span>Live</span></div><div class="status-list"><div class="status-row"><span><i class="status-dot"></i>Cloud data</span><span class="status-ok">Connected</span></div><div class="status-row"><span><i class="status-dot"></i>Product library</span><span class="status-ok">Ready</span></div><div class="status-row"><span><i class="status-dot"></i>Recipe engine</span><span class="status-ok">Ready</span></div><div class="status-row"><span><i class="status-dot"></i>Access control</span><span class="status-ok" id="healthRole">Active</span></div></div></section></div>
 
   <div class="card">
     <h2 class="hero-title">🏠 Dashboard</h2>
@@ -330,10 +321,8 @@ body{background:radial-gradient(circle at 85% 0%,#edf1e2 0,transparent 35%),var(
   <div class="card">
     <div class="title"><div><h2 style="font-size:18px">Quick Actions</h2></div></div>
     <div class="row quick-actions">
-      <button class="btn primary" onclick="showView('products');showAdd()">+ Add Product</button>
       <button class="btn light" onclick="showView('products');viewIngredientMaster()">+ Add Ingredient</button>
       <button class="btn light owner-only" onclick="showView('prices')">💰 Update Prices</button>
-      <button class="btn light" onclick="showView('calculator')">🧮 Recipe Calculator</button>
       <button class="btn light owner-only" onclick="showView('cost')">💵 Cost Calculator</button>
       <button class="btn light owner-only" onclick="inviteWorker()">👥 Invite a Worker</button>
     </div>
@@ -420,10 +409,11 @@ const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let currentUserId = null, currentCompanyId = null, currentRole = null, isAppAdmin = false;
 
-// extraIngredients (autocomplete helper list) has no dedicated table yet,
-// so it stays per-device in localStorage for now.
+// extraIngredients: ingredient-master entries that aren't yet used by any
+// product. Stored in Supabase (extra_ingredients table) so the whole
+// company sees the same list, not just the device that added them.
 let products=[];
-let extraIngredients=JSON.parse(localStorage.getItem('extraIngredients')||'null')||[];
+let extraIngredients=[];
 let ingredientPrices=[];
 let productionCostDefaults={}; // { [productId]: {labour,gas,packaging,transport,other,custom} }
 let editing=-1;
@@ -464,6 +454,23 @@ async function loadPricesFromRemote(){
  if(error) return [];
  return (data||[]).map(x=>({id:x.id, name:x.name, tamilName:x.tamil_name||'', unit:x.unit, price:Number(x.price), supplier:x.supplier||'', notes:x.notes||''}));
 }
+async function loadExtraIngredientsFromRemote(){
+ let {data, error} = await sbClient.from('extra_ingredients').select('*').order('name');
+ if(error) return [];
+ return (data||[]).map(x=>({id:x.id, name:x.name, unit:x.unit, tamilName:x.tamil_name||'', supplier:x.supplier||'', notes:x.notes||''}));
+}
+async function remoteInsertExtraIngredient(name, unit){
+ let {data, error} = await sbClient.from('extra_ingredients').insert({
+   company_id:currentCompanyId, name, unit
+ }).select().single();
+ if(error){ alert('Could not save ingredient: '+error.message); return null; }
+ return {id:data.id, name:data.name, unit:data.unit, tamilName:data.tamil_name||'', supplier:data.supplier||'', notes:data.notes||''};
+}
+async function remoteDeleteExtraIngredient(id){
+ let {error} = await sbClient.from('extra_ingredients').delete().eq('id', id);
+ if(error){ alert('Could not remove ingredient: '+error.message); return false; }
+ return true;
+}
 async function loadCostDefaultsFromRemote(){
  let {data, error} = await sbClient.from('production_costs').select('*');
  if(error) return {};
@@ -490,7 +497,7 @@ async function initApp(){
  currentRole=profile.role;
  isAppAdmin=!!profile.is_app_admin;
 
- let {data:sub} = await sbClient.from('subscriptions').select('status').eq('company_id', currentCompanyId).single();
+ let {data:sub} = await sbClient.from('subscriptions').select('status').eq('company_id', currentCompanyId).maybeSingle();
  let active = sub && (sub.status==='trialing' || sub.status==='active');
  if(currentRole==='owner' && !active){ window.location.href=BILLING_URL; return; }
 
@@ -504,6 +511,7 @@ async function initApp(){
    if(seeded) products=[seeded];
  }
  migrateProducts();
+ extraIngredients = await loadExtraIngredientsFromRemote();
  if(currentRole==='owner'){
    ingredientPrices = await loadPricesFromRemote();
    productionCostDefaults = await loadCostDefaultsFromRemote();
@@ -857,17 +865,20 @@ async function lhAdminSave(){
 }
 async function lhAdminTogglePublish(id){
  let v=lhAdminVideos.find(x=>x.id===id); if(!v) return;
- await sbClient.from('videos').update({is_published:!v.is_published}).eq('id', id);
+ let {error}=await sbClient.from('videos').update({is_published:!v.is_published}).eq('id', id);
+ if(error){ alert('Could not update video: '+error.message); return; }
  lhLoaded=false; renderLearningHub();
 }
 async function lhAdminToggleFeature(id){
  let v=lhAdminVideos.find(x=>x.id===id); if(!v) return;
- await sbClient.from('videos').update({is_featured:!v.is_featured}).eq('id', id);
+ let {error}=await sbClient.from('videos').update({is_featured:!v.is_featured}).eq('id', id);
+ if(error){ alert('Could not update video: '+error.message); return; }
  lhLoaded=false; renderLearningHub();
 }
 async function lhAdminDelete(id){
  if(!confirm('Delete this video permanently?')) return;
- await sbClient.from('videos').delete().eq('id', id);
+ let {error}=await sbClient.from('videos').delete().eq('id', id);
+ if(error){ alert('Could not delete video: '+error.message); return; }
  lhLoaded=false; renderLearningHub();
 }
 
@@ -938,12 +949,6 @@ function parseSearch(text){
   if(m) return {name:m[3].trim(), qty:Number(m[1]), unit:m[2].toLowerCase()};
   return {name:text, qty:null, unit:null};
 }
-function unitToGrams(qty,unit){
-  let u=String(unit||'').toLowerCase();
-  if(['kg','kgs'].includes(u)) return qty*1000;
-  if(['g','gm','gms','gram','grams'].includes(u)) return qty;
-  return null;
-}
 function findProduct(name){
   let q=name.toLowerCase().trim();
   let raw=name.trim();
@@ -968,7 +973,7 @@ function view(i, requestedValue=null, requestedUnit=null){
  let displayValue=requestedValue!==null ? requestedValue : p.batch;
  let displayUnit=requestedUnit || p.unit;
  document.getElementById('list').innerHTML=`<div class="card"><div class="title"><div><h2>🌶️ ${esc(p.name)}</h2><div class="meta">Base batch: <b>${p.batch} ${p.unit}</b></div></div><button class="btn light" onclick="render()">← Back</button></div>
- <div class="scale">Required final quantity <input id="scale" type="number" min="0.01" step="0.01" value="${displayValue}" oninput="scaled(${i})"> <select id="scaleUnit" onchange="scaled(${i})"><option value="g" ${displayUnit==='g'?'selected':''}>g</option><option value="kg" ${displayUnit==='kg'?'selected':''}>kg</option></select></div>
+ <div class="scale">Required final quantity <input id="scale" type="number" min="0.01" step="0.01" value="${displayValue}" oninput="scaled(${i})"> <select id="scaleUnit" onchange="scaled(${i})">${unitOptionHtml(p.unit, displayUnit)}</select></div>
  <div class="meta">The calculation uses the recipe proportions and normalizes weight-based ingredients to the exact requested final weight.</div>
  <div id="ingredients"></div><div class="row" style="margin-top:18px"><button class="btn light" onclick="edit(${i})">✏️ Edit</button></div></div>`;
  scaled(i);
@@ -978,6 +983,25 @@ function toGrams(qty, unit){
  if(['kg','kgs','kilogram','kilograms'].includes(u)) return qty*1000;
  if(['g','gm','gms','gram','grams'].includes(u)) return qty;
  return null;
+}
+// Which unit family a unit belongs to, so quantity selectors (recipe
+// scaling, cost calculator) only ever offer units that make sense for
+// the product — g/kg for weight-based recipes, ml/L for liquids, and
+// the product's own unit for anything else (pcs, sprigs, etc).
+function unitFamily(unit){
+ let u=String(unit||'').toLowerCase().trim();
+ if(['g','gm','gms','gram','grams','kg','kgs','kilogram','kilograms'].includes(u)) return 'weight';
+ if(['ml','mls','millilitre','millilitres','milliliter','milliliters','l','ltr','ltrs','litre','litres','liter','liters'].includes(u)) return 'volume';
+ return 'other';
+}
+function unitOptionsFor(unit){
+ let fam=unitFamily(unit);
+ if(fam==='weight') return ['g','kg'];
+ if(fam==='volume') return ['ml','L'];
+ return [unit];
+}
+function unitOptionHtml(unit, selected){
+ return unitOptionsFor(unit).map(u=>`<option value="${esc(u)}" ${selected===u?'selected':''}>${esc(u)}</option>`).join('');
 }
 function formatWeight(g){
  if(g>=1000) return `${fmt(g/1000)} kg`;
@@ -995,16 +1019,24 @@ function formatVolume(ml){
 }
 function computeScale(p, target, targetUnit){
  if(!target || target<=0) target=p.batch;
- let targetGrams=unitToGrams(target,targetUnit);
- let batchGrams=toGrams(p.batch,p.unit);
- let factor=(targetGrams!==null && batchGrams!==null) ? targetGrams/batchGrams : target/p.batch;
+ // Convert both the requested quantity and the base batch to a common
+ // unit — grams for weight recipes, millilitres for liquid recipes —
+ // so scaling stays correct for both product types (previously this
+ // only understood weight units, so liquid/volume products such as
+ // sauces or syrups measured in ml/L scaled incorrectly).
+ let targetGrams=toGrams(target,targetUnit), batchGrams=toGrams(p.batch,p.unit);
+ let targetMl=toMl(target,targetUnit), batchMl=toMl(p.batch,p.unit);
+ let factor;
+ if(targetGrams!==null && batchGrams!==null) factor=targetGrams/batchGrams;
+ else if(targetMl!==null && batchMl!==null) factor=targetMl/batchMl;
+ else factor=target/p.batch;
  let rows=p.ingredients.map(x=>{
    let qty=Number(x[1])*factor;
    let grams=toGrams(qty,x[2]);
    let ml=grams===null ? toMl(qty,x[2]) : null;
    return {name:x[0], qty, unit:x[2], grams, ml};
  });
- return {rows, factor, targetGrams, target, targetUnit, batchGrams};
+ return {rows, factor, targetGrams, targetMl, target, targetUnit, batchGrams, batchMl};
 }
 function rowDisplay(x){
  if(x.grams!==null) return formatWeight(x.grams);
@@ -1017,10 +1049,13 @@ function scaled(i){
  let targetUnit=document.getElementById('scaleUnit')?.value || p.unit;
  let r=computeScale(p, target, targetUnit);
  let rows=r.rows.map((x,n)=>`<tr><td>${n+1}</td><td>${esc(x.name)}</td><td><b>${rowDisplay(x)}</b></td></tr>`).join('');
+ let totalLabel = r.targetGrams!==null ? formatWeight(r.targetGrams)
+   : r.targetMl!==null ? formatVolume(r.targetMl)
+   : fmt(r.target)+' '+esc(r.targetUnit);
  document.getElementById('ingredients').innerHTML=
   `<div class="meta">Calculation factor: <b>${fmt(r.factor)}×</b></div>
    <div class="table-scroll"><table><thead><tr><th>#</th><th>Ingredient</th><th>Exact Quantity</th></tr></thead><tbody>${rows}</tbody></table></div>
-   <div class="meta" style="margin-top:14px"><b>Total required: ${r.targetGrams!==null?formatWeight(r.targetGrams):fmt(r.target)+' '+esc(r.targetUnit)}</b></div>`;
+   <div class="meta" style="margin-top:14px"><b>Total required: ${totalLabel}</b></div>`;
 }
 function countQtyTokens(s){return (s.match(/\d+(?:\.\d+)?\s*(?:kg|kgs|g|gm|gms|gram|grams)\b/gi)||[]).length}
 function splitMultiInput(text){
@@ -1307,19 +1342,24 @@ function viewIngredientMaster(){
    btn.addEventListener('click', ()=>removeMasterIngredient(btn.dataset.key));
  });
 }
-function addMasterIngredient(){
+async function addMasterIngredient(){
  let name=document.getElementById('newIngName').value.trim();
  let unit=document.getElementById('newIngUnit').value.trim()||'g';
  if(!name){ alert('Enter an ingredient name.'); return; }
  let exists=getIngredientMaster().some(x=>normName(x.name)===normName(name));
  if(exists){ alert('"'+name+'" is already in the list.'); return; }
- extraIngredients.push({name, unit});
- localStorage.setItem('extraIngredients', JSON.stringify(extraIngredients));
+ let created=await remoteInsertExtraIngredient(name, unit);
+ if(!created) return;
+ extraIngredients.push(created);
  viewIngredientMaster();
 }
-function removeMasterIngredient(name){
- extraIngredients=extraIngredients.filter(x=>normName(x.name)!==normName(name));
- localStorage.setItem('extraIngredients', JSON.stringify(extraIngredients));
+async function removeMasterIngredient(name){
+ let entry=extraIngredients.find(x=>normName(x.name)===normName(name));
+ if(!entry) return;
+ if(!confirm('Remove "'+entry.name+'" from the ingredient list?')) return;
+ let ok=await remoteDeleteExtraIngredient(entry.id);
+ if(!ok) return;
+ extraIngredients=extraIngredients.filter(x=>x.id!==entry.id);
  viewIngredientMaster();
 }
 async function saveEdit(){
@@ -1358,7 +1398,6 @@ function showView(name){
  currentView=name;
  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
  const target=document.getElementById('view-'+name); if(target) target.classList.add('active');
- document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.view===name));
  document.querySelectorAll('[data-side]').forEach(b=>b.classList.toggle('active', b.dataset.side===name));
  const labels={dashboard:'Overview',products:'Products',calculator:'Recipe Calculator',prices:'Ingredient Prices',cost:'Cost Calculator',learning:'Learning Hub'};
  const crumb=document.getElementById('pageCrumb'); if(crumb) crumb.textContent=labels[name]||'Overview';
@@ -1410,8 +1449,14 @@ function importData(evt){
        if(created) newProducts.push(created);
      }
      products=newProducts;
-     extraIngredients=Array.isArray(data.extraIngredients)?data.extraIngredients:[];
-     localStorage.setItem('extraIngredients',JSON.stringify(extraIngredients));
+     await sbClient.from('extra_ingredients').delete().eq('company_id', currentCompanyId);
+     let importedExtra=Array.isArray(data.extraIngredients)?data.extraIngredients:[];
+     let newExtra=[];
+     for(const x of importedExtra){
+       let created=await remoteInsertExtraIngredient(x.name, x.unit||'g');
+       if(created) newExtra.push(created);
+     }
+     extraIngredients=newExtra;
      if(currentRole==='owner'){
        await sbClient.from('ingredient_prices').delete().eq('company_id', currentCompanyId);
        let importedPrices=Array.isArray(data.ingredientPrices)?data.ingredientPrices:[];
@@ -1548,10 +1593,7 @@ function renderCostCalc(){
    <div class="row">
      <input id="costProduct" list="costProductList" placeholder="Select a product" value="${selected?esc(selected.name):''}" onchange="pickCostProduct(this.value)">
      <input id="costQty" type="number" min="0.01" step="0.01" value="${costState.qty}" oninput="updateCostQty()">
-     <select id="costUnit" onchange="updateCostQty()">
-       <option value="g" ${costState.unit==='g'?'selected':''}>g</option>
-       <option value="kg" ${costState.unit==='kg'?'selected':''}>kg</option>
-     </select>
+     <select id="costUnit" onchange="updateCostQty()">${unitOptionHtml(selected?selected.unit:'g', costState.unit)}</select>
    </div>
    <div id="costBreakdown" style="margin-top:16px"></div>
  </div>`;
@@ -1564,8 +1606,13 @@ function pickCostProduct(name){
    let saved=productionCostDefaults[p.id];
    costState.costs=Object.assign({labour:0,gas:0,packaging:0,transport:0,other:0,custom:[]},saved||{});
    if(!Array.isArray(costState.costs.custom)) costState.costs.custom=[];
+   // Default the quantity unit to match this product's own unit family
+   // (weight vs volume) — the available unit options depend on it too,
+   // so the whole card is re-rendered rather than just the breakdown.
+   let opts=unitOptionsFor(p.unit);
+   if(!opts.includes(costState.unit)) costState.unit=opts[opts.length>1?1:0];
  }
- renderCostBreakdown();
+ renderCostCalc();
 }
 function updateCostQty(){
  costState.qty=Number(document.getElementById('costQty').value)||0;
@@ -1651,8 +1698,13 @@ function renderCostBreakdown(){
  let extra=Number(costs.labour||0)+Number(costs.gas||0)+Number(costs.packaging||0)+Number(costs.transport||0)+Number(costs.other||0)+customTotal;
  let totalCost=ingredientCost+extra;
  let costPerUnit=totalCost/costState.qty;
- let gramsBase=costState.unit==='kg'?costState.qty*1000:costState.qty;
- let costPerGram=gramsBase>0?totalCost/gramsBase:0;
+ // Base amount in the smallest unit of the product's own family (grams
+ // for weight, ml for volume, the raw unit otherwise) so the pack-size
+ // cost table below works for liquid products too, not just weight ones.
+ let baseAmount=toGrams(costState.qty,costState.unit);
+ if(baseAmount===null) baseAmount=toMl(costState.qty,costState.unit);
+ if(baseAmount===null) baseAmount=costState.qty;
+ let costPerBase=baseAmount>0?totalCost/baseAmount:0;
  let sp=costState.sellingPrice===''||costState.sellingPrice===null?null:Number(costState.sellingPrice);
  let hasSp = sp!==null && !isNaN(sp) && sp>=0;
  let revenue=0, profit=0, margin=0, belowCost=false;
@@ -1662,7 +1714,12 @@ function renderCostBreakdown(){
    margin=revenue>0?(profit/revenue*100):0;
    belowCost=sp<costPerUnit;
  }
- let packSizes=[{label:'100 g',g:100},{label:'250 g',g:250},{label:'500 g',g:500},{label:'1 kg',g:1000}];
+ let packFamily=unitFamily(costState.unit);
+ let packSizes = packFamily==='weight'
+   ? [{label:'100 g',amt:100},{label:'250 g',amt:250},{label:'500 g',amt:500},{label:'1 kg',amt:1000}]
+   : packFamily==='volume'
+   ? [{label:'100 ml',amt:100},{label:'250 ml',amt:250},{label:'500 ml',amt:500},{label:'1 L',amt:1000}]
+   : [{label:'1 '+costState.unit,amt:1},{label:'5 '+costState.unit,amt:5},{label:'10 '+costState.unit,amt:10}];
  box.innerHTML=`
   ${incomplete?`<div class="warn-banner">⚠ Ingredient cost is incomplete — ${esc(warnParts.join('; '))}. Set or fix these in 💰 Ingredient Prices for an accurate total.</div>`:''}
   <div class="table-scroll"><table><thead><tr><th>Ingredient</th><th>Required</th><th>Rate</th><th>Cost</th></tr></thead><tbody>${rows}</tbody></table></div>
@@ -1685,7 +1742,7 @@ function renderCostBreakdown(){
   <div class="row" style="margin-top:6px"><button class="btn light" onclick="addCustomCost()">+ Add Custom Cost</button></div>
   <h3 style="margin-top:18px;font-size:16px">📦 Cost by Pack Size</h3>
   <div class="table-scroll"><table><thead><tr><th>Pack Size</th><th>Production Cost</th></tr></thead><tbody>
-   ${packSizes.map(ps=>`<tr><td>${ps.label}</td><td>₹${fmt(costPerGram*ps.g)}</td></tr>`).join('')}
+   ${packSizes.map(ps=>`<tr><td>${ps.label}</td><td>₹${fmt(costPerBase*ps.amt)}</td></tr>`).join('')}
   </tbody></table></div>
   <h3 style="margin-top:18px;font-size:16px">Selling Price</h3>
   <div class="row">
