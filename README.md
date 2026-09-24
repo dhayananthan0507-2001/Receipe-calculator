@@ -5,18 +5,19 @@ Production-oriented multi-user recipe and production manager frontend.
 ## Files
 - `auth.html` — Supabase authentication, registration, worker invite and password reset.
 - `index.html` — authenticated workspace dashboard, product/recipe calculator, ingredient pricing and cost calculator.
+- `images/` — **new**. `sunrise.jpg`, `maize.jpg`, `spices.jpg`, `chef-kid.webp` — the background/illustration photos `auth.html` and `index.html` reference. These **must** sit next to the HTML files (i.e. at `images/sunrise.jpg` relative to the page), or the backgrounds won't load. This is also why backgrounds weren't showing before: they pointed at external photo URLs instead of files that ship with your site.
 - `worker_invites.sql` — Supabase SQL for worker invitations/RPC support.
 - `learning_hub_schema.sql` — Supabase SQL for the Learning Hub (curated videos, watch progress, saved videos, app-admin flag).
 - `extra_ingredients_schema.sql` — Supabase SQL for the shared, company-wide ingredient master list. Run once before deploying.
-- `company_directory_and_domain.sql` — **new**. Supabase SQL backing the company-based login emails and the new Team screen (see Changelog). Run this once, after `worker_invites.sql`.
-- `seed_learning_hub_videos.sql` — **new**. Adds two real starter videos to the Learning Hub so it isn't empty on first login. Run once, after `learning_hub_schema.sql`.
+- `company_directory_and_domain.sql` — Supabase SQL backing the company-based login emails and the Team screen. Run this once, after `worker_invites.sql`.
+- `seed_learning_hub_videos.sql` — Adds two real starter videos to the Learning Hub so it isn't empty on first login. Run once, after `learning_hub_schema.sql`.
 
 This zip assumes the base schema (companies, profiles, products, ingredients, ingredient_prices, production_costs, subscriptions, my_company_id(), my_role(), and the `create_company_and_owner` RPC) is already set up in your Supabase project from earlier work — it isn't included here since it wasn't part of this upload.
 
 ## Deploy
 1. Run the SQL files in this order (skip any you've already run): `worker_invites.sql` → `learning_hub_schema.sql` → `extra_ingredients_schema.sql` → `company_directory_and_domain.sql` → `seed_learning_hub_videos.sql`.
 2. **Supabase Auth settings**: turn **off** "Confirm email" (Authentication → Providers → Email). Login emails are now auto-generated (see below) and are not real mailboxes, so a confirmation email would never arrive.
-3. Upload the HTML files to GitHub Pages, Netlify, Vercel static hosting, or another static host.
+3. Upload the HTML files **and the `images/` folder** (keep its name and contents exactly as-is) to GitHub Pages, Netlify, Vercel static hosting, or another static host — the folder has to sit next to the HTML files for the backgrounds to load.
 
 ## Important
 The dashboard UI has been redesigned without removing the existing product, recipe calculator, ingredient price and cost-calculator logic. Configure the corresponding Supabase tables/RLS/RPCs before production use.

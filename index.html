@@ -33,8 +33,8 @@ body{
   background-image:
     radial-gradient(circle at 12% 0%, rgba(239,242,226,.92) 0%, transparent 45%),
     radial-gradient(circle at 100% 10%, rgba(237,240,222,.92) 0%, transparent 40%),
-    linear-gradient(rgba(247,244,233,.94),rgba(247,244,233,.94)),
-    url('https://commons.wikimedia.org/wiki/Special:FilePath/A%20view%20of%20ploughed%20crop%20field%20in%20Salem.JPG');
+    linear-gradient(rgba(247,244,233,.90),rgba(247,244,233,.90)),
+    url('images/maize.jpg');
   background-size:cover;background-position:center;background-attachment:fixed;background-repeat:no-repeat;
   color:var(--ink);
   min-height:100vh;
@@ -225,7 +225,12 @@ body{background:radial-gradient(circle at 85% 0%,#edf1e2 0,transparent 35%),var(
 @keyframes fadeIn{from{opacity:.4;transform:translateY(3px)}to{opacity:1;transform:none}}
 @media(max-width:900px){.sidebar{transform:translateX(-100%);transition:transform .2s}.sidebar.open{transform:none}.main-area{margin-left:0}.mobile-menu{display:block}.topbar{padding:0 18px}.content{padding:24px 18px 55px}.dashboard-grid{grid-template-columns:1fr 1fr}.panel-grid{grid-template-columns:1fr}.hero-wrap{align-items:flex-start;flex-direction:column}.hero-actions{width:100%}.hero-actions .btn{flex:1}}
 @media(max-width:560px){.dashboard-grid{grid-template-columns:1fr 1fr;gap:9px}.metric{padding:14px}.metric-value{font-size:25px}.action-grid{grid-template-columns:1fr}.hero-wrap h2{font-size:27px}.top-actions .top-icon{display:none}}
-.about-card{background-color:#fffdf8;background-image:linear-gradient(180deg,rgba(255,253,248,.97),rgba(255,253,248,.97)),url('https://commons.wikimedia.org/wiki/Special:FilePath/A%20view%20of%20ploughed%20crop%20field%20in%20Salem.JPG');background-size:cover;background-position:center}
+.about-card{background-color:#fffdf8;background-image:linear-gradient(180deg,rgba(255,253,248,.96),rgba(255,253,248,.96)),url('images/spices.jpg');background-size:cover;background-position:center}
+.hero-mascot{width:96px;height:96px;border-radius:18px;object-fit:cover;box-shadow:0 10px 26px rgba(31,93,58,.18);border:3px solid var(--paper);flex-shrink:0}
+.health-strip{display:flex;flex-wrap:wrap;align-items:center;gap:14px;background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:9px 16px;margin-bottom:18px;font-size:11.5px;color:var(--muted)}
+.health-strip .hs-label{font-weight:700;color:var(--forest-deep);text-transform:uppercase;font-size:10px;letter-spacing:.6px;margin-right:2px}
+.health-strip .hs-item{display:flex;align-items:center;gap:5px}
+.health-strip .status-dot{width:7px;height:7px;border-radius:50%;background:#3f8051;display:inline-block}
 .about-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
 .about-item{background:rgba(255,255,255,.85);border:1px solid var(--border);border-radius:13px;padding:14px}
 .about-item strong{display:block;font-size:13.5px;margin-bottom:5px;color:var(--forest-deep)}
@@ -316,23 +321,19 @@ body{background:radial-gradient(circle at 85% 0%,#edf1e2 0,transparent 35%),var(
 
 
 <div id="view-dashboard" class="view">
-  <div class="hero-wrap"><div><div class="eyebrow">Workspace overview</div><h2>Good to see you back. 👋</h2><p>Keep recipes, production quantities and costs in one place. Use the menu on the left to add products, calculate a batch, or manage pricing.</p></div></div>
+  <div class="hero-wrap"><div><div class="eyebrow">Workspace overview</div><h2>Good to see you back. 👋</h2><p>Keep recipes, production quantities and costs in one place. Use the menu on the left to add products, calculate a batch, or manage pricing.</p></div><img class="hero-mascot" src="images/chef-kid.webp" alt="" loading="lazy"></div>
   <div class="dashboard-grid" id="smartMetrics"><div class="metric"><div class="metric-label">Products</div><div class="metric-value" id="smartProducts">—</div><div class="metric-note">Saved in your workspace</div></div><div class="metric"><div class="metric-label">Recipes</div><div class="metric-value" id="smartRecipes">—</div><div class="metric-note">Production formulas</div></div><div class="metric"><div class="metric-label">Price coverage</div><div class="metric-value" id="smartCoverage">—</div><div class="metric-note">Ingredients with pricing</div></div><div class="metric"><div class="metric-label">Team access</div><div class="metric-value" id="smartRole">—</div><div class="metric-note">Current workspace role</div></div></div>
-  <div class="panel-grid" style="margin-bottom:18px;grid-template-columns:1fr"><section class="panel"><div class="panel-head"><h3>Workspace health</h3><span>Live</span></div><div class="status-list"><div class="status-row"><span><i class="status-dot"></i>Cloud data</span><span class="status-ok">Connected</span></div><div class="status-row"><span><i class="status-dot"></i>Product library</span><span class="status-ok">Ready</span></div><div class="status-row"><span><i class="status-dot"></i>Recipe engine</span><span class="status-ok">Ready</span></div><div class="status-row"><span><i class="status-dot"></i>Access control</span><span class="status-ok" id="healthRole">Active</span></div></div></section></div>
+  <div class="health-strip"><span class="hs-label">Workspace health</span><span class="hs-item"><i class="status-dot"></i>Cloud data</span><span class="hs-item"><i class="status-dot"></i>Product library</span><span class="hs-item"><i class="status-dot"></i>Recipe engine</span><span class="hs-item"><i class="status-dot"></i>Access: <b id="healthRole" style="color:#39714a">Active</b></span></div>
 
   <div class="card about-card">
     <h2 class="hero-title">🌿 About Homies Kit</h2>
-    <p class="meta" style="font-size:14.5px;line-height:1.7">Homies Kit is your food business's production and costing workspace — everything your team needs to run recipes accurately and price them with confidence, in one shared, cloud-backed place instead of scattered notebooks and phone photos.</p>
+    <p class="meta" style="font-size:14.5px;line-height:1.7">Homies Kit is your food business's production and costing workspace — everything your team needs to run recipes accurately and price them with confidence, in one shared, cloud-backed place instead of scattered notebooks and phone photos. Simple enough for anyone on your team to pick up, whatever their age or comfort with computers.</p>
     <div class="about-grid">
       <div class="about-item"><strong>📦 One product catalogue</strong><span>Every recipe, ingredient list and Tamil name your whole team can see and search — added once, available everywhere.</span></div>
       <div class="about-item"><strong>🧮 Accurate batch scaling</strong><span>Type a batch size and instantly get the exact ingredient quantities, whether you're measuring by weight or volume.</span></div>
       <div class="about-item"><strong>💰 Real production costs</strong><span>Ingredient prices, packaging, labour and gas roll up into a true cost per batch and per pack size, so you can price with confidence.</span></div>
       <div class="about-item"><strong>👥 Built for teams</strong><span>Invite workers with a one-time code, keep pricing edits with the owner, and give everyone the same up-to-date data.</span></div>
     </div>
-  </div>
-  <div class="card">
-    <div class="title"><div><h2 style="font-size:18px">Recently Added Products</h2></div></div>
-    <div id="dashRecent"></div>
   </div>
   <div class="card owner-only">
     <div class="title"><div><h2 style="font-size:18px">Backup &amp; Reset</h2><div class="meta">Export your data as a backup file, restore from a backup, or reset back to the built-in demo product.</div></div></div>
