@@ -372,6 +372,87 @@ body{
   .photo-spice{width:145px;height:190px;right:40%;top:225px}.photo-maize{width:160px;height:110px;right:0;top:250px}.photo-chef{width:120px;height:120px;right:8%;bottom:38px}
 }
 
+
+/* =========================================================
+   HOMIES KIT V3 — PREMIUM FOOD BUSINESS EXPERIENCE
+   Visual layer only: preserves existing application logic.
+   ========================================================= */
+:root{
+  --v3-forest:#0d3522;--v3-green:#1f6b3f;--v3-lime:#b8d77a;--v3-gold:#e7bd59;
+  --v3-cream:#fbf7ea;--v3-ink:#17301f;--v3-muted:#667568;
+}
+body{background:#eef2e7;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-5;background:radial-gradient(circle at 10% 10%,rgba(185,215,122,.18),transparent 25%),radial-gradient(circle at 90% 20%,rgba(231,189,89,.14),transparent 25%)}
+.main-area{background:transparent}
+.topbar{background:rgba(255,253,247,.72)!important;backdrop-filter:blur(18px);border-bottom:1px solid rgba(20,55,35,.08)!important;position:sticky;top:0;z-index:45}
+.sidebar{background:linear-gradient(165deg,#092b1a 0%,#123d27 52%,#0b291a 100%)!important;box-shadow:14px 0 45px rgba(7,39,23,.18)!important}
+.side-mark{background:linear-gradient(145deg,#f2d67d,#c99b38)!important;box-shadow:0 8px 25px rgba(231,189,89,.22)!important}
+.side-nav button{transition:.25s ease!important;border:1px solid transparent!important}
+.side-nav button:hover{background:rgba(255,255,255,.09)!important;border-color:rgba(255,255,255,.08)!important;transform:translateX(4px)}
+.side-nav button.active{background:linear-gradient(90deg,rgba(232,191,91,.18),rgba(255,255,255,.07))!important;border-color:rgba(232,191,91,.22)!important}
+.content{max-width:1400px!important;padding:26px 30px 90px!important}
+/* hero */
+.hk-hero{min-height:530px!important;border-radius:34px!important;margin-bottom:20px!important;box-shadow:0 30px 90px rgba(10,48,28,.25)!important;background:#0a2f1d!important}
+.hk-hero-bg{background:
+ linear-gradient(90deg,rgba(5,27,17,.96) 0%,rgba(7,45,27,.80) 40%,rgba(8,48,28,.18) 72%,rgba(8,32,20,.08) 100%),
+ linear-gradient(0deg,rgba(5,26,16,.30),transparent 45%),url('images/maize.jpg') center/cover no-repeat!important;animation:hkV3Zoom 18s ease-in-out infinite alternate!important}
+@keyframes hkV3Zoom{from{transform:scale(1.01)}to{transform:scale(1.12) translate3d(-1%,0,0)}}
+.hk-hero:before{content:"";position:absolute;inset:-20%;z-index:0;background:radial-gradient(circle at 74% 32%,rgba(231,189,89,.24),transparent 16%),radial-gradient(circle at 86% 72%,rgba(184,215,122,.19),transparent 18%);animation:v3Glow 8s ease-in-out infinite alternate;pointer-events:none}
+@keyframes v3Glow{to{transform:scale(1.1);opacity:.72}}
+.hk-hero-content{padding:62px 0 60px 58px!important;max-width:700px!important}
+.hk-kicker{font-size:11px!important;letter-spacing:2.3px!important}
+.hk-hero h2{font-size:clamp(42px,5vw,72px)!important;line-height:.98!important;letter-spacing:-2px!important;text-shadow:0 8px 30px rgba(0,0,0,.22)}
+.hk-hero h2 em{background:linear-gradient(90deg,#f6d77b,#b9db80);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hk-hero p{font-size:16px!important;max-width:610px!important}
+.hk-hero-tags span{background:rgba(255,255,255,.10)!important;border-color:rgba(255,255,255,.22)!important;box-shadow:0 6px 20px rgba(0,0,0,.08);transition:.25s ease}
+.hk-hero-tags span:hover{transform:translateY(-3px);background:rgba(255,255,255,.17)!important}
+.hk-hero-visual{width:50%!important;right:1%!important}
+.hk-photo{box-shadow:0 28px 65px rgba(0,0,0,.35)!important;border-radius:26px!important}
+.photo-spice{width:220px!important;height:285px!important;right:30%!important;top:70px!important}
+.photo-maize{width:270px!important;height:185px!important;right:-1%!important;top:40px!important}
+.photo-chef{width:190px!important;height:190px!important;right:7%!important;bottom:32px!important}
+.hk-orbit{border-color:rgba(255,255,255,.24)!important}
+/* stat row */
+.hk-stats{grid-template-columns:repeat(4,1fr)!important;gap:15px!important;margin-bottom:20px!important}
+.hk-stat{min-height:105px!important;border-radius:21px!important;padding:18px!important;background:rgba(255,255,255,.78)!important;backdrop-filter:blur(20px)!important;box-shadow:0 12px 35px rgba(24,65,39,.08)!important;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s!important}
+.hk-stat:hover{transform:translateY(-7px) scale(1.015)!important;box-shadow:0 22px 45px rgba(24,65,39,.14)!important}
+.hk-stat-icon{width:50px!important;height:50px!important;border-radius:16px!important;background:linear-gradient(145deg,#fff3cf,#e1f0d5)!important;box-shadow:inset 0 1px 0 #fff,0 7px 18px rgba(20,55,35,.08)}
+/* story */
+.hk-showcase{grid-template-columns:1.15fr .85fr!important;gap:20px!important}
+.hk-story-card,.hk-food-card{border-radius:28px!important;box-shadow:0 18px 55px rgba(20,58,36,.10)!important}
+.hk-story-card{min-height:430px!important}
+.hk-story-image{background:linear-gradient(145deg,rgba(4,39,23,.05),rgba(4,39,23,.72)),url('images/spices.jpg') center/cover!important}
+.hk-story-image:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 20%,rgba(255,255,255,.18),transparent 70%);transform:translateX(-100%);animation:v3Shimmer 7s infinite}
+@keyframes v3Shimmer{20%,100%{transform:translateX(120%)}}
+.hk-story-copy{padding:34px!important}
+.hk-story-copy h3{font-size:32px!important}
+.hk-benefits>div{padding:10px;border-radius:13px;transition:.25s ease}
+.hk-benefits>div:hover{background:#f3f6eb;transform:translateX(4px)}
+.hk-food-card{min-height:430px!important}
+.hk-food-photo{background:linear-gradient(180deg,rgba(8,45,27,.02) 20%,rgba(5,30,19,.94) 100%),url('images/sunrise.jpg') center/cover!important}
+.hk-food-overlay{padding:32px!important}
+.hk-food-overlay h3{font-size:34px!important}
+/* new process strip */
+.v3-process{margin:20px 0;position:relative;border-radius:28px;padding:26px;background:linear-gradient(135deg,#0b3521,#174c2f);overflow:hidden;box-shadow:0 20px 55px rgba(10,50,29,.18);color:white}
+.v3-process:before{content:"";position:absolute;width:340px;height:340px;border-radius:50%;right:-120px;top:-180px;background:rgba(231,189,89,.14)}
+.v3-process-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:20px;position:relative;z-index:1}
+.v3-process-head h3{font-size:27px;color:#fff}.v3-process-head p{margin:0;color:#c9d9ca;font-size:12px;max-width:430px;line-height:1.55}
+.v3-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;position:relative;z-index:1}
+.v3-flow:before{content:"";position:absolute;left:9%;right:9%;top:31px;height:2px;background:linear-gradient(90deg,#d8b65b,#9bc36f,#d8b65b);opacity:.45}
+.v3-step{position:relative;text-align:center}.v3-step-icon{width:64px;height:64px;border-radius:22px;margin:0 auto 10px;display:grid;place-items:center;font-size:28px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.17);backdrop-filter:blur(10px);position:relative;z-index:2;transition:.3s ease}.v3-step:hover .v3-step-icon{transform:translateY(-7px) rotate(-3deg);background:rgba(255,255,255,.17)}
+.v3-step b{font-size:13px;display:block}.v3-step span{font-size:10px;color:#b9cbbc;display:block;margin-top:3px}
+/* visual gallery */
+.v3-gallery{margin:20px 0;display:grid;grid-template-columns:1.4fr .8fr .8fr;grid-template-rows:190px 190px;gap:12px}
+.v3-gallery-card{border-radius:22px;overflow:hidden;position:relative;background:#183c28;box-shadow:0 14px 35px rgba(20,58,36,.10);min-height:0}
+.v3-gallery-card:first-child{grid-row:1/3}.v3-gallery-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s ease}.v3-gallery-card:hover img{transform:scale(1.08)}
+.v3-gallery-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(5,29,18,.88));pointer-events:none}
+.v3-gallery-copy{position:absolute;left:18px;bottom:16px;color:#fff;z-index:2}.v3-gallery-copy b{font:600 22px Fraunces,serif;display:block}.v3-gallery-copy span{font-size:10px;color:#d7e3d8}
+/* health */
+.hk-health{border-radius:18px!important;padding:14px 18px!important;box-shadow:0 8px 28px rgba(20,58,36,.07)}
+/* responsive */
+@media(max-width:1050px){.hk-stats{grid-template-columns:1fr 1fr!important}.hk-showcase{grid-template-columns:1fr!important}.v3-gallery{grid-template-columns:1fr 1fr;grid-template-rows:220px 160px}.v3-gallery-card:first-child{grid-row:1/2;grid-column:1/3}}
+@media(max-width:800px){.content{padding:18px 15px 55px!important}.hk-hero{min-height:570px!important}.hk-hero-content{padding:36px 25px!important}.hk-hero h2{font-size:44px!important}.hk-hero-visual{width:100%!important;top:210px!important;right:0!important;opacity:.30!important}.v3-process-head{display:block}.v3-process-head p{margin-top:7px}.v3-flow{grid-template-columns:1fr 1fr;gap:16px}.v3-flow:before{display:none}.v3-gallery{grid-template-columns:1fr;grid-template-rows:240px 190px 190px}.v3-gallery-card:first-child{grid-column:auto;grid-row:auto}}
+@media(max-width:520px){.hk-stats{grid-template-columns:1fr!important}.hk-hero h2{font-size:39px!important;letter-spacing:-1.2px!important}.photo-spice{width:150px!important;height:200px!important;right:37%!important}.photo-maize{width:180px!important;height:120px!important;right:-2%!important}.photo-chef{width:130px!important;height:130px!important;right:7%!important}.hk-story-copy h3{font-size:26px!important}.v3-process{padding:20px 16px}.v3-flow{grid-template-columns:1fr 1fr}.v3-gallery{grid-template-rows:210px 170px 170px}}
 </style>
 </head>
 <body>
@@ -464,6 +545,29 @@ body{
         <p>Made for growing kitchens, home businesses and production teams.</p>
       </div>
     </div>
+  </section>
+
+
+
+  <section class="v3-process">
+    <div class="v3-process-head">
+      <div><div class="eyebrow" style="color:#e7bd59">THE HOMIES KIT FLOW</div><h3>From farm → kitchen → finished product</h3></div>
+      <p>One visual workflow for the everyday work behind a food product. Move from raw ingredients to recipe, costing and production with less manual calculation.</p>
+    </div>
+    <div class="v3-flow">
+      <div class="v3-step"><div class="v3-step-icon">🌾</div><b>Raw crops</b><span>Source ingredients</span></div>
+      <div class="v3-step"><div class="v3-step-icon">🌶️</div><b>Ingredients</b><span>Build your library</span></div>
+      <div class="v3-step"><div class="v3-step-icon">👨‍🍳</div><b>Preparation</b><span>Follow your formula</span></div>
+      <div class="v3-step"><div class="v3-step-icon">🧮</div><b>Batch & cost</b><span>Scale with confidence</span></div>
+      <div class="v3-step"><div class="v3-step-icon">📦</div><b>Product</b><span>Ready for production</span></div>
+    </div>
+  </section>
+
+  <section class="v3-gallery" aria-label="Homies Kit visual gallery">
+    <div class="v3-gallery-card"><img src="images/spices.jpg" alt="Fresh spices and ingredients"><div class="v3-gallery-copy"><b>Ingredients with purpose</b><span>Organize the raw materials behind every recipe.</span></div></div>
+    <div class="v3-gallery-card"><img src="images/maize.jpg" alt="Natural crops"><div class="v3-gallery-copy"><b>Natural crops</b><span>From source to product.</span></div></div>
+    <div class="v3-gallery-card"><img src="images/chef-kid.webp" alt="Food preparation"><div class="v3-gallery-copy"><b>Kitchen work</b><span>Make preparation repeatable.</span></div></div>
+    <div class="v3-gallery-card"><img src="images/sunrise.jpg" alt="Fresh food business atmosphere"><div class="v3-gallery-copy"><b>Grow your business</b><span>Keep your process clear.</span></div></div>
   </section>
 
   <div class="health-strip hk-health"><span class="hs-label">Workspace health</span><span class="hs-item"><i class="status-dot"></i>Cloud data</span><span class="hs-item"><i class="status-dot"></i>Product library</span><span class="hs-item"><i class="status-dot"></i>Recipe engine</span><span class="hs-item"><i class="status-dot"></i>Access: <b id="healthRole" style="color:#39714a">Active</b></span></div>

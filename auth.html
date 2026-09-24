@@ -119,6 +119,17 @@ input.invalid{border-color:var(--chili)}
   .preview-grid{grid-template-columns:1fr}.workspace-preview{display:none}
 }
 </style>
+
+<style id="homies-v3-auth">
+/* Homies Kit V3 authentication visual layer */
+body{background:#0a2f1d!important;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:-20%;background:radial-gradient(circle at 15% 25%,rgba(231,189,89,.22),transparent 22%),radial-gradient(circle at 82% 18%,rgba(184,215,122,.18),transparent 24%),linear-gradient(120deg,rgba(7,35,22,.94),rgba(10,53,31,.55)),url('images/maize.jpg') center/cover;animation:v3AuthBg 20s ease-in-out infinite alternate;z-index:-3}
+@keyframes v3AuthBg{to{transform:scale(1.08)}}
+.auth-container,.auth-card,.login-container,.card{backdrop-filter:blur(22px)!important}
+button{transition:transform .2s ease,box-shadow .2s ease,filter .2s ease!important}
+button:hover{transform:translateY(-2px)!important;filter:brightness(1.04)}
+input{transition:.2s ease!important}input:focus{box-shadow:0 0 0 4px rgba(231,189,89,.14)!important}
+</style>
 </head>
 <body>
 <main class="shell">
