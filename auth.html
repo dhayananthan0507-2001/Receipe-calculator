@@ -6,6 +6,8 @@
 <meta name="theme-color" content="#153B26">
 <title>Homies Kit — Secure Access</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://wfkludouxmcxptysuckx.supabase.co">
+<link rel="dns-prefetch" href="//wfkludouxmcxptysuckx.supabase.co">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -130,18 +132,59 @@ button{transition:transform .2s ease,box-shadow .2s ease,filter .2s ease!importa
 button:hover{transform:translateY(-2px)!important;filter:brightness(1.04)}
 input{transition:.2s ease!important}input:focus{box-shadow:0 0 0 4px rgba(231,189,89,.14)!important}
 </style>
+
+<style id="homies-v4-auth">
+:root{--gold:#e7bd59;--lime:#b8d77a}
+body{background:#071f14!important;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:-12%;background:
+radial-gradient(circle at 12% 18%,rgba(231,189,89,.20),transparent 20%),
+radial-gradient(circle at 86% 24%,rgba(184,215,122,.16),transparent 22%),
+linear-gradient(125deg,rgba(5,27,17,.96),rgba(11,65,39,.64)),
+url('images/maize.jpg') center/cover no-repeat;z-index:-3;
+animation:authPan 18s ease-in-out infinite alternate;will-change:transform}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;
+background:radial-gradient(circle at 50% 110%,rgba(231,189,89,.16),transparent 38%);
+animation:authGlow 7s ease-in-out infinite alternate}
+@keyframes authPan{from{transform:scale(1) translate3d(0,0,0)}to{transform:scale(1.06) translate3d(-1.5%,1%,0)}}
+@keyframes authGlow{from{opacity:.55}to{opacity:1}}
+.auth-orb{position:fixed;border-radius:50%;pointer-events:none;z-index:-1;filter:blur(2px);opacity:.28}
+.auth-orb.one{width:170px;height:170px;left:-50px;top:16%;background:var(--gold);animation:orbOne 9s ease-in-out infinite}
+.auth-orb.two{width:230px;height:230px;right:-80px;bottom:8%;background:var(--lime);animation:orbTwo 12s ease-in-out infinite}
+@keyframes orbOne{50%{transform:translate(45px,35px) scale(1.12)}}
+@keyframes orbTwo{50%{transform:translate(-35px,-40px) scale(.9)}}
+.card{animation:cardIn .65s cubic-bezier(.2,.8,.2,1) both;box-shadow:0 30px 90px rgba(0,0,0,.24)}
+.brand{animation:brandIn .8s .08s cubic-bezier(.2,.8,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes brandIn{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;left:-110%;width:55%;height:100%;
+background:linear-gradient(90deg,transparent,rgba(255,255,255,.24),transparent);transform:skewX(-18deg)}
+.btn:hover::after{animation:buttonSheen .75s ease}
+@keyframes buttonSheen{to{left:140%}}
+.auth-single{max-width:520px}
+.auth-switch{display:flex;justify-content:center;gap:8px;margin:12px 0 2px;font-size:13px;color:var(--ink-soft)}
+.auth-switch button{border:0;background:none;color:var(--forest);font-weight:700;cursor:pointer}
+.auth-register{display:none}
+.auth-register.open{display:block;animation:cardIn .35s ease both}
+.auth-login.hidden{display:none}
+.small-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;
+background:rgba(231,189,89,.13);color:#7d5c16;font-size:11px;font-weight:700;margin-bottom:10px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
 </head>
+
 <body>
+<div class="auth-orb one"></div><div class="auth-orb two"></div>
 <main class="shell">
   <section class="brand">
     <div class="logo"><div class="logo-mark">🌶️</div> HOMIES KIT</div>
     <div class="hero">
       <h1>Run your food business with less guesswork.</h1>
-      <p>Manage products, recipes, production quantities and costs from one simple workspace.</p>
+      <p>One secure login for your entire Homies Kit workspace.</p>
       <div class="features">
         <div class="feature"><strong>Products</strong><span>Keep your ingredient and product catalogue organized.</span></div>
-        <div class="feature"><strong>Recipes</strong><span>Scale recipes accurately for your required batch size.</span></div>
-        <div class="feature"><strong>Costs</strong><span>Track ingredient and additional production costs.</span></div>
+        <div class="feature"><strong>Recipes</strong><span>Scale recipes accurately for any batch size.</span></div>
+        <div class="feature"><strong>Costs</strong><span>Track production costs and selling prices clearly.</span></div>
       </div>
       <div class="workspace-preview" aria-hidden="true">
         <div class="preview-top"><span class="pulse-dot"></span><span>YOUR WORKSPACE</span><span class="preview-live">LIVE</span></div>
@@ -155,464 +198,192 @@ input{transition:.2s ease!important}input:focus{box-shadow:0 0 0 4px rgba(231,18
     </div>
   </section>
 
-  <section class="card" aria-label="Authentication">
+  <section class="card auth-single" aria-label="Homies Kit authentication">
     <div class="card-head">
-      <h2 id="cardTitle">Create your account</h2>
-      <p id="cardSubtitle">Start your Homies Kit workspace.</p>
+      <span class="small-pill">● SECURE WORKSPACE ACCESS</span>
+      <h2 id="cardTitle">Welcome back</h2>
+      <p id="cardSubtitle">Sign in once and go straight to your workspace.</p>
     </div>
 
-    <div class="tabs">
-      <div class="tab active" id="tabSignup" onclick="switchTab('signup')">Create Account</div>
-      <div class="tab" id="tabLogin" onclick="switchTab('login')">Log In</div>
-    </div>
-
-    <form id="signupForm" novalidate>
-      <div class="tabs mode-tabs">
-        <div class="tab active" id="modeOwner" onclick="switchSignupMode('owner')">Start a Business</div>
-        <div class="tab" id="modeWorker" onclick="switchSignupMode('worker')">Join with Invite</div>
-      </div>
-
-      <div id="ownerFields">
-        <label for="suCompany">Company / Business Name</label>
-        <input id="suCompany" autocomplete="organization" placeholder="e.g. Home to Home Agri Business" oninput="updateGeneratedEmail()">
-      </div>
-
-      <div id="workerFields" class="hidden">
-        <label for="suInviteCode">Invite Code</label>
-        <input id="suInviteCode" autocomplete="off" placeholder="Enter the code from your employer" style="text-transform:uppercase" oninput="checkInviteCompany()">
-      </div>
-
-      <label for="suFullName">Your Name</label>
-      <input id="suFullName" autocomplete="name" placeholder="e.g. Priya Kumar" oninput="updateGeneratedEmail()">
-
-      <label>Your Login Email <span id="suEmailValidBadge"></span></label>
-      <input id="suEmail" type="email" readonly tabindex="-1" placeholder="Fill in the fields above" style="background:#F3F2E9;color:var(--ink-soft)">
-      <div class="inline-note" id="suEmailPreview">Every teammate's login email is tied to your company, so only people from the same business can sign in to your workspace.</div>
-
-      <label for="suPassword">Password</label>
-      <div class="input-wrap">
-        <input id="suPassword" type="password" autocomplete="new-password" placeholder="Create a strong password" minlength="6" required>
-        <button type="button" class="toggle-pass" onclick="togglePassword('suPassword',this)" aria-label="Show password">👁</button>
-      </div>
-      <div class="strength">
-        <div class="strength-track"><div class="strength-fill" id="strengthFill"></div></div>
-        <div class="strength-text" id="strengthText">Use 8+ characters with a mix of letters, numbers and symbols.</div>
-      </div>
-
-      <button class="btn" type="submit" id="suBtn">Create Account &amp; Start Free Trial</button>
-      <div class="inline-note" id="signupNote">Your login email is generated from your name and company, not a real mailbox — if "Confirm email" is turned on in your Supabase project's Auth settings, no verification mail will ever arrive at it. Turn that setting off so accounts can sign in right away.</div>
-    </form>
-
-    <form id="loginForm" class="hidden" novalidate>
-      <label for="liEmail">Email</label>
-      <input id="liEmail" type="email" autocomplete="email" placeholder="yourname.initial@yourcompany.com" required>
-      <div class="inline-note" style="margin-top:8px">Your login email follows the pattern <b>yourname.initial@yourcompany.com</b> — check the email you were given when your account was created.</div>
+    <form id="loginForm" class="auth-login" novalidate>
+      <label for="liEmail">Login Email</label>
+      <input id="liEmail" type="email" autocomplete="username" placeholder="yourname.initial@yourcompany.com" required>
 
       <label for="liPassword">Password</label>
       <div class="input-wrap">
-        <input id="liPassword" type="password" autocomplete="current-password" placeholder="Your password" required>
+        <input id="liPassword" type="password" autocomplete="current-password" placeholder="Enter your password" required>
         <button type="button" class="toggle-pass" onclick="togglePassword('liPassword',this)" aria-label="Show password">👁</button>
       </div>
-      <div class="password-row">
-        <span></span>
-        <button type="button" class="link" onclick="showReset()">Forgot password?</button>
-      </div>
-
+      <div class="password-row"><span></span><button type="button" class="link" onclick="showReset()">Forgot password?</button></div>
       <button class="btn" type="submit" id="liBtn">Log In</button>
     </form>
 
-    <form id="resetForm" class="hidden" novalidate>
-      <label for="resetEmail">Account Email</label>
-      <input id="resetEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
-      <button class="btn" type="submit" id="resetBtn">Send Reset Link</button>
-      <div class="inline-note">We'll send a secure password-reset link to this email address.</div>
-      <div style="text-align:center;margin-top:14px"><button type="button" class="link" onclick="showLogin()">Back to Log In</button></div>
-    </form>
+    <div class="auth-switch">
+      <span>New to Homies Kit?</span>
+      <button type="button" onclick="toggleRegister()">Create an account</button>
+    </div>
+
+    <div id="registerPanel" class="auth-register">
+      <div class="inline-note" style="margin:14px 0">Create a business workspace, or enter an invite code to join an existing company.</div>
+      <form id="signupForm" novalidate>
+        <label for="suCompany">Company / Business Name</label>
+        <input id="suCompany" autocomplete="organization" placeholder="e.g. Home to Home Agri Business" oninput="updateGeneratedEmail()">
+
+        <label for="suInviteCode">Invite Code <span style="font-weight:400">(optional for teammates)</span></label>
+        <input id="suInviteCode" autocomplete="off" placeholder="Enter your employer's invite code" style="text-transform:uppercase" oninput="checkInviteCompany()">
+
+        <label for="suFullName">Your Name</label>
+        <input id="suFullName" autocomplete="name" placeholder="e.g. Priya Kumar" oninput="updateGeneratedEmail()">
+
+        <label>Your Login Email <span id="suEmailValidBadge"></span></label>
+        <input id="suEmail" type="email" readonly tabindex="-1" placeholder="Complete the fields above" style="background:#F3F2E9;color:var(--ink-soft)">
+        <div class="inline-note" id="suEmailPreview">Enter your company and name. For a teammate, use an invite code.</div>
+
+        <label for="suPassword">Password</label>
+        <div class="input-wrap">
+          <input id="suPassword" type="password" autocomplete="new-password" placeholder="Create a strong password" minlength="6" required>
+          <button type="button" class="toggle-pass" onclick="togglePassword('suPassword',this)" aria-label="Show password">👁</button>
+        </div>
+        <div class="strength"><div class="strength-track"><div class="strength-fill" id="strengthFill"></div></div><div class="strength-text" id="strengthText">Use 8+ characters with a mix of letters, numbers and symbols.</div></div>
+        <button class="btn" type="submit" id="suBtn">Create Workspace</button>
+      </form>
+    </div>
+
+    <div id="resetPanel" class="auth-register">
+      <div class="inline-note" style="margin:14px 0">Enter the email associated with your account and we'll send a secure reset link.</div>
+      <form id="resetForm" novalidate>
+        <label for="resetEmail">Account Email</label>
+        <input id="resetEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
+        <button class="btn" type="submit" id="resetBtn">Send Reset Link</button>
+        <div style="text-align:center;margin-top:14px"><button type="button" class="link" onclick="showLogin()">Back to login</button></div>
+      </form>
+    </div>
 
     <div id="msg" class="msg" role="status" aria-live="polite"></div>
     <div class="foot">By continuing, you agree to Homies Kit's Terms &amp; Privacy Policy.</div>
   </section>
 </main>
 <div id="toast" class="toast"></div>
-
 <script>
-/* ================================================================
-   SUPABASE CONFIG
-   Keep your existing project values from the uploaded auth.html.
-   The publishable/anon key is intended for browser use; database
-   security must be enforced with Supabase RLS and server-side RPCs.
-   ================================================================ */
 const SUPABASE_URL = 'https://wfkludouxmcxptysuckx.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_mQ2sUZpUf1sLahfeUHVc9w_2tldq41s';
 const DASHBOARD_URL = 'index.html';
 const BILLING_URL = 'billing.html';
-
 const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-    detectSessionInUrl: true
-  }
+  auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
 });
-
-let signupMode = 'owner';
-let authBusy = false;
-let workerDomain = ''; // filled in once an invite code is checked
-let inviteCheckToken = 0;
-
-function $(id){ return document.getElementById(id); }
-
-/* Every login email is tied to the company, so people from different
-   businesses can never collide or log into the wrong workspace. */
-function companySlug(name){
-  return (name || '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 24) || 'company';
-}
-function loginIdFromName(fullName){
-  const parts = (fullName || '').trim().toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/).filter(Boolean);
-  if(!parts.length) return '';
-  if(parts.length === 1) return parts[0];
-  const first = parts[0];
-  const initial = parts[parts.length - 1][0] || '';
-  return initial ? `${first}.${initial}` : first;
-}
+let authBusy=false, workerDomain='', inviteCheckToken=0;
+const $=id=>document.getElementById(id);
+function companySlug(name){return(name||'').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,24)||'company'}
+function loginIdFromName(name){const p=(name||'').trim().toLowerCase().replace(/[^a-z\s]/g,'').split(/\s+/).filter(Boolean);if(!p.length)return '';if(p.length===1)return p[0];return p[0]+'.'+(p[p.length-1][0]||'')}
 function updateGeneratedEmail(){
-  const loginId = loginIdFromName($('suFullName').value);
-  const domain = signupMode === 'owner' ? companySlug($('suCompany').value) : workerDomain;
-  const preview = $('suEmailPreview');
-  if(loginId && domain){
-    $('suEmail').value = `${loginId}@${domain}.com`;
-    preview.textContent = signupMode === 'owner'
-      ? `This will be your workspace's owner login. Teammates you invite will get emails on the same @${domain}.com company domain.`
-      : `Joining as part of this company — your login email uses their @${domain}.com domain.`;
-  }else{
-    $('suEmail').value = '';
-    preview.textContent = signupMode === 'owner'
-      ? 'Enter your company name and your name above to see your login email.'
-      : 'Enter a valid invite code and your name above to see your login email.';
-  }
+ const login=loginIdFromName($('suFullName').value), code=$('suInviteCode').value.trim();
+ const domain=code&&workerDomain?workerDomain:companySlug($('suCompany').value);
+ if(login&&domain){
+   $('suEmail').value=`${login}@${domain}.com`;
+   $('suEmailPreview').textContent=code&&workerDomain?`Invite matched. Your teammate login will use the @${domain}.com workspace domain.`:`This will be your owner login for the ${$('suCompany').value.trim()||'company'} workspace.`;
+ }else{$('suEmail').value='';$('suEmailPreview').textContent='Enter your company and name. For a teammate, use an invite code.'}
 }
 async function checkInviteCompany(){
-  const code = $('suInviteCode').value.trim().toUpperCase();
-  const token = ++inviteCheckToken;
-  workerDomain = '';
-  if(!code){ updateGeneratedEmail(); return; }
-  try{
-    const {data, error} = await sbClient.rpc('get_invite_company_domain', {p_invite_code: code});
-    if(token !== inviteCheckToken) return; // a newer keystroke has superseded this check
-    if(error || !data) throw error || new Error('Invite not found');
-    workerDomain = data;
-  }catch(e){
-    workerDomain = '';
-  }
-  updateGeneratedEmail();
+ const code=$('suInviteCode').value.trim().toUpperCase(), token=++inviteCheckToken; workerDomain='';
+ if(!code){updateGeneratedEmail();return}
+ try{
+   const {data,error}=await sbClient.rpc('get_invite_company_domain',{p_invite_code:code});
+   if(token!==inviteCheckToken)return;
+   if(error||!data)throw error||new Error('Invite not found');
+   workerDomain=data;
+ }catch(e){workerDomain=''}
+ updateGeneratedEmail();
 }
-
-function switchSignupMode(mode){
-  signupMode = mode;
-  $('modeOwner').classList.toggle('active', mode === 'owner');
-  $('modeWorker').classList.toggle('active', mode === 'worker');
-  $('ownerFields').classList.toggle('hidden', mode !== 'owner');
-  $('workerFields').classList.toggle('hidden', mode !== 'worker');
-  $('suBtn').textContent = mode === 'owner' ? 'Create Account & Start Free Trial' : 'Join Company';
-  updateGeneratedEmail();
-  hideMsg();
+function toggleRegister(open){
+ const panel=$('registerPanel'), isOpen=open===undefined?!panel.classList.contains('open'):open;
+ $('resetPanel').classList.remove('open'); panel.classList.toggle('open',isOpen);
+ $('cardTitle').textContent=isOpen?'Create your workspace':'Welcome back';
+ $('cardSubtitle').textContent=isOpen?'Set up your business or join with an invite.':'Sign in once and go straight to your workspace.';
+ if(isOpen)$('suCompany').focus(); hideMsg();
 }
-
-function switchTab(which){
-  $('tabSignup').classList.toggle('active', which === 'signup');
-  $('tabLogin').classList.toggle('active', which === 'login');
-  $('signupForm').classList.toggle('hidden', which !== 'signup');
-  $('loginForm').classList.toggle('hidden', which !== 'login');
-  $('resetForm').classList.add('hidden');
-  $('cardTitle').textContent = which === 'signup' ? 'Create your account' : 'Welcome back';
-  $('cardSubtitle').textContent = which === 'signup' ? 'Start your Homies Kit workspace.' : 'Log in securely to your workspace.';
-  hideMsg();
-}
-
-function showLogin(){ switchTab('login'); }
+function showLogin(){toggleRegister(false);$('loginForm').classList.remove('hidden');$('liEmail').focus()}
 function showReset(){
-  $('signupForm').classList.add('hidden');
-  $('loginForm').classList.add('hidden');
-  $('resetForm').classList.remove('hidden');
-  $('tabSignup').classList.remove('active');
-  $('tabLogin').classList.add('active');
-  $('cardTitle').textContent = 'Reset your password';
-  $('cardSubtitle').textContent = 'We’ll help you get back into your account.';
-  $('resetEmail').value = $('liEmail').value.trim();
-  hideMsg();
-  $('resetEmail').focus();
+ $('registerPanel').classList.remove('open');$('resetPanel').classList.add('open');
+ $('cardTitle').textContent='Reset your password';$('cardSubtitle').textContent='Securely recover your Homies Kit account.';
+ $('resetEmail').value=$('liEmail').value.trim();hideMsg();$('resetEmail').focus();
 }
+function showMsg(text,type){$('msg').textContent=text;$('msg').className='msg '+type}
+function hideMsg(){$('msg').className='msg'}
+function setBusy(btn,busy,label){btn.disabled=busy;btn.classList.toggle('loading',busy);btn.setAttribute('aria-busy',busy?'true':'false');if(!busy)btn.textContent=label}
+function validEmail(email){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)}
+function togglePassword(id,button){const input=$(id),show=input.type==='password';input.type=show?'text':'password';button.textContent=show?'🙈':'👁';button.setAttribute('aria-label',show?'Hide password':'Show password')}
+function passwordScore(p){let s=0;if(p.length>=8)s++;if(p.length>=12)s++;if(/[a-z]/.test(p)&&/[A-Z]/.test(p))s++;if(/\d/.test(p))s++;if(/[^A-Za-z0-9]/.test(p))s++;return Math.min(s,4)}
+$('suPassword').addEventListener('input',e=>{const s=passwordScore(e.target.value),w=['0%','25%','50%','75%','100%'],t=['Use 8+ characters with a mix of letters, numbers and symbols.','Weak — add more characters.','Fair — add uppercase, numbers or symbols.','Good — your password is getting stronger.','Strong password.'];$('strengthFill').style.width=w[s];$('strengthText').textContent=t[s]});
+function normalizeAuthError(m){m=(m||'').toLowerCase();if(m.includes('invalid login credentials'))return'Email or password is incorrect.';if(m.includes('email not confirmed'))return'Please verify your email before logging in.';if(m.includes('user already registered'))return'An account with this email already exists. Try logging in.';return m&&m!=='authentication failed'?m:'Authentication failed. Please try again.'}
+async function ensureProfile(id){const{data,error}=await sbClient.from('profiles').select('company_id,role').eq('id',id).maybeSingle();if(error)throw error;return data}
+async function getSubscription(id){const{data,error}=await sbClient.from('subscriptions').select('status').eq('company_id',id).maybeSingle();if(error)throw error;return data}
 
-function showMsg(text, type){
-  const el = $('msg');
-  el.textContent = text;
-  el.className = 'msg ' + type;
-}
-
-function hideMsg(){ $('msg').className = 'msg'; }
-
-function setBusy(btn, busy, label){
-  btn.disabled = busy;
-  btn.classList.toggle('loading', busy);
-  btn.setAttribute('aria-busy', busy ? 'true' : 'false');
-  if(!busy) btn.textContent = label;
-}
-
-function validEmail(email){
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function togglePassword(id, button){
-  const input = $(id);
-  const showing = input.type === 'text';
-  input.type = showing ? 'password' : 'text';
-  button.textContent = showing ? '👁' : '🙈';
-  button.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
-}
-
-function passwordScore(password){
-  let score = 0;
-  if(password.length >= 8) score++;
-  if(password.length >= 12) score++;
-  if(/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
-  if(/\d/.test(password)) score++;
-  if(/[^A-Za-z0-9]/.test(password)) score++;
-  return Math.min(score, 4);
-}
-
-$('suPassword').addEventListener('input', e => {
-  const score = passwordScore(e.target.value);
-  const widths = ['0%','25%','50%','75%','100%'];
-  const labels = [
-    'Use 8+ characters with a mix of letters, numbers and symbols.',
-    'Weak — add more characters.',
-    'Fair — add uppercase, numbers or symbols.',
-    'Good — your password is getting stronger.',
-    'Strong password.'
-  ];
-  $('strengthFill').style.width = widths[score];
-  $('strengthText').textContent = labels[score];
+$('loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();if(authBusy)return;hideMsg();
+ const btn=$('liBtn'),email=$('liEmail').value.trim().toLowerCase(),password=$('liPassword').value;
+ if(!validEmail(email)){showMsg('Please enter a valid login email.','error');$('liEmail').focus();return}
+ if(!password){showMsg('Please enter your password.','error');$('liPassword').focus();return}
+ authBusy=true;setBusy(btn,true,'Log In');
+ try{
+   const{data,error}=await sbClient.auth.signInWithPassword({email,password});if(error)throw error;
+   if(!data.user)throw new Error('We could not establish your account session. Please try again.');
+   const profile=await ensureProfile(data.user.id);
+   if(!profile){await sbClient.auth.signOut();throw new Error('Your account is not linked to a company yet. Please contact the owner/admin.')}
+   if(profile.role==='owner'){
+     const sub=await getSubscription(profile.company_id);
+     if(!(sub&&['trialing','active'].includes(sub.status))){window.location.replace(BILLING_URL);return}
+   }
+   window.location.replace(DASHBOARD_URL);
+ }catch(err){showMsg(normalizeAuthError(err.message),'error')}
+ finally{authBusy=false;setBusy(btn,false,'Log In')}
 });
 
-async function ensureProfile(userId){
-  const {data: profile, error} = await sbClient
-    .from('profiles')
-    .select('company_id, role')
-    .eq('id', userId)
-    .maybeSingle();
-
-  if(error) throw error;
-  return profile;
-}
-
-async function getSubscription(companyId){
-  const {data, error} = await sbClient
-    .from('subscriptions')
-    .select('status')
-    .eq('company_id', companyId)
-    .maybeSingle();
-
-  if(error) throw error;
-  return data;
-}
-
-function normalizeAuthError(message){
-  const m = (message || '').toLowerCase();
-  if(m.includes('invalid login credentials')) return 'Email or password is incorrect.';
-  if(m.includes('email not confirmed')) return 'Please verify your email before logging in.';
-  if(m.includes('user already registered')) return 'An account with this email already exists. Try logging in.';
-  if(m.includes('password')) return message;
-  return message || 'Authentication failed. Please try again.';
-}
-
-/* ---------- SIGN UP ---------- */
-$('signupForm').addEventListener('submit', async e => {
-  e.preventDefault();
-  if(authBusy) return;
-  hideMsg();
-
-  const btn = $('suBtn');
-  const companyName = $('suCompany').value.trim();
-  const inviteCode = $('suInviteCode').value.trim().toUpperCase();
-  const fullName = $('suFullName').value.trim();
-  let email = $('suEmail').value.trim().toLowerCase();
-  const password = $('suPassword').value;
-
-  if(signupMode === 'owner' && !companyName){
-    showMsg('Please enter your company/business name.', 'error'); $('suCompany').focus(); return;
-  }
-  if(signupMode === 'worker' && !inviteCode){
-    showMsg('Please enter your invite code.', 'error'); $('suInviteCode').focus(); return;
-  }
-  if(signupMode === 'worker' && inviteCode && !workerDomain){
-    showMsg('That invite code could not be matched to a company. Double-check it with your employer.', 'error'); $('suInviteCode').focus(); return;
-  }
-  if(!fullName){
-    showMsg('Please enter your name.', 'error'); $('suFullName').focus(); return;
-  }
-  if(!validEmail(email)){
-    showMsg('Please enter your company name and your name above so a login email can be generated.', 'error'); return;
-  }
-  if(password.length < 6){
-    showMsg('Password must be at least 6 characters.', 'error'); $('suPassword').focus(); return;
-  }
-
-  authBusy = true;
-  const label = signupMode === 'owner' ? 'Create Account & Start Free Trial' : 'Join Company';
-  setBusy(btn, true, label);
-
-  try{
-    let {data, error} = await sbClient.auth.signUp({email, password});
-    // Same name already used in this company — retry once with a short numeric suffix
-    // so two teammates with the same name/initial can both get a working login.
-    if(error && /already registered/i.test(error.message || '')){
-      const [localPart, domainPart] = email.split('@');
-      email = `${localPart}${Math.floor(10 + Math.random()*89)}@${domainPart}`;
-      $('suEmail').value = email;
-      ({data, error} = await sbClient.auth.signUp({email, password}));
-    }
-    if(error) throw error;
-
-    if(!data.session){
-      showMsg(`Account created. Your login email is ${email} — save it. Check your inbox to verify, then log in.`, 'success');
-      $('liEmail').value = email;
-      switchTab('login');
-      return;
-    }
-
-    if(signupMode === 'owner'){
-      const {error: rpcError} = await sbClient.rpc('create_company_and_owner', {
-        p_company_name: companyName
-      });
-      if(rpcError) throw rpcError;
-    }else{
-      const {error: rpcError} = await sbClient.rpc('join_company_with_invite', {
-        p_invite_code: inviteCode
-      });
-      if(rpcError) throw rpcError;
-    }
-
-    showMsg('Account ready. Opening your workspace…', 'success');
-    window.location.replace(DASHBOARD_URL);
-  }catch(err){
-    showMsg(normalizeAuthError(err.message), 'error');
-  }finally{
-    authBusy = false;
-    setBusy(btn, false, label);
-  }
+$('signupForm').addEventListener('submit',async e=>{
+ e.preventDefault();if(authBusy)return;hideMsg();
+ const btn=$('suBtn'),company=$('suCompany').value.trim(),invite=$('suInviteCode').value.trim().toUpperCase(),name=$('suFullName').value.trim(),password=$('suPassword').value;
+ if(!company&&!invite){showMsg('Enter your company name, or use an invite code to join a company.','error');return}
+ if(invite&&!workerDomain){showMsg('That invite code could not be matched. Please check it with your employer.','error');return}
+ if(!name){showMsg('Please enter your name.','error');return}
+ const email=$('suEmail').value.trim().toLowerCase();if(!validEmail(email)){showMsg('Complete the company/name fields first.','error');return}
+ if(password.length<6){showMsg('Password must be at least 6 characters.','error');return}
+ authBusy=true;setBusy(btn,true,invite?'Join Company':'Create Workspace');
+ try{
+   let{data,error}=await sbClient.auth.signUp({email,password});
+   if(error&&/already registered/i.test(error.message||'')){
+     const[a,d]=email.split('@');const retry=`${a}${Math.floor(10+Math.random()*89)}@${d}`;$('suEmail').value=retry;
+     ({data,error}=await sbClient.auth.signUp({email:retry,password}));
+   }
+   if(error)throw error;
+   if(!data.session){$('liEmail').value=email;showMsg(`Account created. Save your login email: ${email}. Verify it if required, then log in.`,'success');toggleRegister(false);return}
+   const rpc=invite
+     ? sbClient.rpc('join_company_with_invite',{p_invite_code:invite})
+     : sbClient.rpc('create_company_and_owner',{p_company_name:company});
+   const{error:rpcError}=await rpc;if(rpcError)throw rpcError;
+   window.location.replace(DASHBOARD_URL);
+ }catch(err){showMsg(normalizeAuthError(err.message),'error')}
+ finally{authBusy=false;setBusy(btn,false,invite?'Join Company':'Create Workspace')}
 });
 
-/* ---------- LOGIN ---------- */
-$('loginForm').addEventListener('submit', async e => {
-  e.preventDefault();
-  if(authBusy) return;
-  hideMsg();
-
-  const btn = $('liBtn');
-  const email = $('liEmail').value.trim().toLowerCase();
-  const password = $('liPassword').value;
-
-  if(!validEmail(email)){
-    showMsg('Please enter a valid email address.', 'error'); $('liEmail').focus(); return;
-  }
-  if(!password){
-    showMsg('Please enter your password.', 'error'); $('liPassword').focus(); return;
-  }
-
-  authBusy = true;
-  setBusy(btn, true, 'Log In');
-
-  try{
-    const {data, error} = await sbClient.auth.signInWithPassword({email, password});
-    if(error) throw error;
-    if(!data.user){
-      throw new Error('We could not establish your account session. Please try again.');
-    }
-
-    const profile = await ensureProfile(data.user.id);
-    if(!profile){
-      await sbClient.auth.signOut();
-      throw new Error('Your account is not linked to a company yet. Please contact the owner/admin.');
-    }
-
-    // Owners may be redirected to billing when their company has no active trial/subscription.
-    if(profile.role === 'owner'){
-      const sub = await getSubscription(profile.company_id);
-      const active = sub && ['trialing','active'].includes(sub.status);
-      if(!active){
-        window.location.replace(BILLING_URL);
-        return;
-      }
-    }
-
-    window.location.replace(DASHBOARD_URL);
-  }catch(err){
-    showMsg(normalizeAuthError(err.message), 'error');
-  }finally{
-    authBusy = false;
-    setBusy(btn, false, 'Log In');
-  }
+$('resetForm').addEventListener('submit',async e=>{
+ e.preventDefault();if(authBusy)return;hideMsg();
+ const btn=$('resetBtn'),email=$('resetEmail').value.trim().toLowerCase();
+ if(!validEmail(email)){showMsg('Please enter the email associated with your account.','error');return}
+ authBusy=true;setBusy(btn,true,'Send Reset Link');
+ try{
+   const redirectTo=new URL(window.location.href);redirectTo.searchParams.set('mode','reset');
+   const{error}=await sbClient.auth.resetPasswordForEmail(email,{redirectTo:redirectTo.toString()});if(error)throw error;
+   showMsg('If an account exists for this email, a password-reset link has been sent.','success');
+ }catch(err){showMsg(normalizeAuthError(err.message),'error')}
+ finally{authBusy=false;setBusy(btn,false,'Send Reset Link')}
 });
-
-/* ---------- PASSWORD RESET ---------- */
-$('resetForm').addEventListener('submit', async e => {
-  e.preventDefault();
-  if(authBusy) return;
-  hideMsg();
-
-  const btn = $('resetBtn');
-  const email = $('resetEmail').value.trim().toLowerCase();
-
-  if(!validEmail(email)){
-    showMsg('Please enter the email associated with your account.', 'error'); return;
-  }
-
-  authBusy = true;
-  setBusy(btn, true, 'Send Reset Link');
-
-  try{
-    const redirectTo = new URL(window.location.href);
-    redirectTo.searchParams.set('mode','reset');
-
-    const {error} = await sbClient.auth.resetPasswordForEmail(email, {
-      redirectTo: redirectTo.toString()
-    });
-    if(error) throw error;
-
-    showMsg('If an account exists for this email, a password-reset link has been sent.', 'success');
-  }catch(err){
-    showMsg(normalizeAuthError(err.message), 'error');
-  }finally{
-    authBusy = false;
-    setBusy(btn, false, 'Send Reset Link');
-  }
-});
-
-/* ---------- AUTH STATE ---------- */
-sbClient.auth.onAuthStateChange((event, session) => {
-  // Do not redirect on INITIAL_SESSION/SIGNED_IN here. The forms control
-  // navigation after validating the company/profile state, preventing races.
-  if(event === 'PASSWORD_RECOVERY'){
-    showReset();
-  }
-});
-
-/* ---------- SESSION / RECOVERY ENTRY ---------- */
+sbClient.auth.onAuthStateChange(event=>{if(event==='PASSWORD_RECOVERY')showReset()});
 (async function initAuth(){
-  try{
-    const {data:{session}} = await sbClient.auth.getSession();
-
-    const params = new URLSearchParams(window.location.search);
-    if(params.get('mode') === 'reset' && session){
-      showReset();
-      return;
-    }
-
-    // If the user already has a valid session, keep this page usable rather
-    // than silently bouncing them away. This avoids account-switching surprises.
-  }catch(err){
-    console.warn('Session initialization failed:', err);
-  }
+ try{
+   const{data:{session}}=await sbClient.auth.getSession();
+   const params=new URLSearchParams(window.location.search);
+   if(params.get('mode')==='reset'&&session)showReset();
+ }catch(err){console.warn('Session initialization failed:',err)}
 })();
 </script>
 </body>
