@@ -36,7 +36,7 @@ body{
     radial-gradient(circle at 12% 0%, rgba(239,242,226,.92) 0%, transparent 45%),
     radial-gradient(circle at 100% 10%, rgba(237,240,222,.92) 0%, transparent 40%),
     linear-gradient(rgba(247,244,233,.90),rgba(247,244,233,.90)),
-    url('images/maize.jpg');
+    url('images/maize.webp');
   background-size:cover;background-position:center;background-attachment:fixed;background-repeat:no-repeat;
   color:var(--ink);
   min-height:100vh;
@@ -220,7 +220,7 @@ footer{
 body{
   background:
     linear-gradient(135deg,rgba(8,38,24,.78),rgba(18,67,40,.40) 42%,rgba(245,242,232,.82) 78%),
-    url('images/maize.jpg') center/cover fixed no-repeat;
+    url('images/maize.webp') center/cover no-repeat;
   background-color:var(--bg);
 }
 .app-shell{min-height:100vh;display:flex}.sidebar{position:fixed;inset:0 auto 0 0;width:248px;background:linear-gradient(180deg,var(--sidebar),#102f20);color:#fff;display:flex;flex-direction:column;padding:22px 16px;z-index:50;box-shadow:8px 0 30px rgba(18,55,36,.12)}
@@ -232,7 +232,7 @@ body{
 @keyframes fadeIn{from{opacity:.4;transform:translateY(3px)}to{opacity:1;transform:none}}
 @media(max-width:900px){.sidebar{transform:translateX(-100%);transition:transform .2s}.sidebar.open{transform:none}.main-area{margin-left:0}.mobile-menu{display:block}.topbar{padding:0 18px}.content{padding:24px 18px 55px}.dashboard-grid{grid-template-columns:1fr 1fr}.panel-grid{grid-template-columns:1fr}.hero-wrap{align-items:flex-start;flex-direction:column}.hero-actions{width:100%}.hero-actions .btn{flex:1}}
 @media(max-width:560px){.dashboard-grid{grid-template-columns:1fr 1fr;gap:9px}.metric{padding:14px}.metric-value{font-size:25px}.action-grid{grid-template-columns:1fr}.hero-wrap h2{font-size:27px}.top-actions .top-icon{display:none}}
-.about-card{background-color:#fffdf8;background-image:linear-gradient(180deg,rgba(255,253,248,.96),rgba(255,253,248,.96)),url('images/spices.jpg');background-size:cover;background-position:center}
+.about-card{background-color:#fffdf8;background-image:linear-gradient(180deg,rgba(255,253,248,.96),rgba(255,253,248,.96)),url('images/spices.webp');background-size:cover;background-position:center}
 .hero-mascot{width:96px;height:96px;border-radius:18px;object-fit:cover;box-shadow:0 10px 26px rgba(31,93,58,.18);border:3px solid var(--paper);flex-shrink:0}
 .health-strip{display:flex;flex-wrap:wrap;align-items:center;gap:14px;background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:9px 16px;margin-bottom:18px;font-size:11.5px;color:var(--muted)}
 .health-strip .hs-label{font-weight:700;color:var(--forest-deep);text-transform:uppercase;font-size:10px;letter-spacing:.6px;margin-right:2px}
@@ -300,7 +300,7 @@ body{
 }
 .hk-hero-bg{position:absolute;inset:0;z-index:-2;background:
   linear-gradient(90deg,rgba(8,38,24,.94) 0%,rgba(11,58,35,.80) 45%,rgba(9,44,28,.18) 100%),
-  url('images/maize.jpg') center/cover no-repeat;transform:scale(1.04);animation:hkKenBurns 14s ease-in-out infinite alternate}
+  url('images/maize.webp') center/cover no-repeat;transform:scale(1.04);animation:hkKenBurns 14s ease-out 1 forwards}
 .hk-hero:after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 82% 22%,rgba(244,205,102,.28),transparent 25%),radial-gradient(circle at 64% 100%,rgba(70,165,95,.24),transparent 35%);pointer-events:none}
 @keyframes hkKenBurns{to{transform:scale(1.1)}}
 .hk-hero-content{position:relative;z-index:4;max-width:650px;padding:48px 0 48px 48px}
@@ -314,8 +314,8 @@ body{
 .hk-hero-tags span{padding:8px 12px;border:1px solid rgba(255,255,255,.20);background:rgba(255,255,255,.09);backdrop-filter:blur(10px);border-radius:999px;font-size:11px;font-weight:600}
 .hk-hero-visual{position:absolute;right:2%;top:0;width:48%;height:100%;pointer-events:none}
 .hk-photo{position:absolute;border-radius:22px;background-size:cover;background-position:center;box-shadow:0 22px 45px rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.28)}
-.photo-spice{width:190px;height:250px;right:31%;top:62px;background-image:url('images/spices.jpg');transform:rotate(-7deg);animation:hkFloatA 5.5s ease-in-out infinite}
-.photo-maize{width:220px;height:150px;right:3%;top:42px;background-image:url('images/maize.jpg');transform:rotate(6deg);animation:hkFloatB 6s ease-in-out infinite}
+.photo-spice{width:190px;height:250px;right:31%;top:62px;background-image:url('images/spices.webp');transform:rotate(-7deg);animation:hkFloatA 5.5s ease-in-out infinite}
+.photo-maize{width:220px;height:150px;right:3%;top:42px;background-image:url('images/maize.webp');transform:rotate(6deg);animation:hkFloatB 6s ease-in-out infinite}
 .photo-chef{width:158px;height:158px;right:11%;bottom:40px;transform:rotate(5deg);overflow:hidden;background:#f6e8bf;animation:hkFloatC 5.2s ease-in-out infinite}
 .photo-chef img{width:100%;height:100%;object-fit:cover}
 @keyframes hkFloatA{50%{transform:rotate(-4deg) translateY(-12px)}}
@@ -338,7 +338,7 @@ body{
 .hk-story-card{display:grid;grid-template-columns:.78fr 1.22fr;min-height:390px}
 .hk-story-image{position:relative;background:
  linear-gradient(145deg,rgba(14,67,39,.18),rgba(14,67,39,.62)),
- url('images/spices.jpg') center/cover}
+ url('images/spices.webp') center/cover}
 .hk-story-image:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 45%,rgba(255,253,248,.18))}
 .hk-image-badge{position:absolute;left:18px;bottom:18px;color:#fff;background:rgba(11,49,31,.74);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);padding:9px 11px;border-radius:999px;font-size:9px;font-weight:800;letter-spacing:1px}
 .hk-story-copy{padding:28px}
@@ -353,7 +353,7 @@ body{
 .hk-food-card{min-height:390px;background:#153d28}
 .hk-food-photo{position:absolute;inset:0;background:
  linear-gradient(180deg,rgba(10,46,29,.05) 20%,rgba(8,38,24,.88) 100%),
- url('images/sunrise.jpg') center/cover;transform:scale(1.02);transition:transform .6s ease}
+ url('images/sunrise.webp') center/cover;transform:scale(1.02);transition:transform .6s ease}
 .hk-food-card:hover .hk-food-photo{transform:scale(1.08)}
 .hk-food-overlay{position:absolute;left:0;right:0;bottom:0;padding:28px;color:#fff}
 .hk-food-overlay span{font-size:9px;letter-spacing:1.7px;color:#f0d687;font-weight:800}
@@ -397,7 +397,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-5;bac
 .hk-hero{min-height:530px!important;border-radius:34px!important;margin-bottom:20px!important;box-shadow:0 30px 90px rgba(10,48,28,.25)!important;background:#0a2f1d!important}
 .hk-hero-bg{background:
  linear-gradient(90deg,rgba(5,27,17,.96) 0%,rgba(7,45,27,.80) 40%,rgba(8,48,28,.18) 72%,rgba(8,32,20,.08) 100%),
- linear-gradient(0deg,rgba(5,26,16,.30),transparent 45%),url('images/maize.jpg') center/cover no-repeat!important;animation:hkV3Zoom 18s ease-in-out infinite alternate!important}
+ linear-gradient(0deg,rgba(5,26,16,.30),transparent 45%),url('images/maize.webp') center/cover no-repeat!important;animation:hkV3Zoom 18s ease-out 1 forwards!important}
 @keyframes hkV3Zoom{from{transform:scale(1.01)}to{transform:scale(1.12) translate3d(-1%,0,0)}}
 .hk-hero:before{content:"";position:absolute;inset:-20%;z-index:0;background:radial-gradient(circle at 74% 32%,rgba(231,189,89,.24),transparent 16%),radial-gradient(circle at 86% 72%,rgba(184,215,122,.19),transparent 18%);animation:v3Glow 8s ease-in-out infinite alternate;pointer-events:none}
 @keyframes v3Glow{to{transform:scale(1.1);opacity:.72}}
@@ -423,7 +423,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-5;bac
 .hk-showcase{grid-template-columns:1.15fr .85fr!important;gap:20px!important}
 .hk-story-card,.hk-food-card{border-radius:28px!important;box-shadow:0 18px 55px rgba(20,58,36,.10)!important}
 .hk-story-card{min-height:430px!important}
-.hk-story-image{background:linear-gradient(145deg,rgba(4,39,23,.05),rgba(4,39,23,.72)),url('images/spices.jpg') center/cover!important}
+.hk-story-image{background:linear-gradient(145deg,rgba(4,39,23,.05),rgba(4,39,23,.72)),url('images/spices.webp') center/cover!important}
 .hk-story-image:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 20%,rgba(255,255,255,.18),transparent 70%);transform:translateX(-100%);animation:v3Shimmer 7s infinite}
 @keyframes v3Shimmer{20%,100%{transform:translateX(120%)}}
 .hk-story-copy{padding:34px!important}
@@ -431,7 +431,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-5;bac
 .hk-benefits>div{padding:10px;border-radius:13px;transition:.25s ease}
 .hk-benefits>div:hover{background:#f3f6eb;transform:translateX(4px)}
 .hk-food-card{min-height:430px!important}
-.hk-food-photo{background:linear-gradient(180deg,rgba(8,45,27,.02) 20%,rgba(5,30,19,.94) 100%),url('images/sunrise.jpg') center/cover!important}
+.hk-food-photo{background:linear-gradient(180deg,rgba(8,45,27,.02) 20%,rgba(5,30,19,.94) 100%),url('images/sunrise.webp') center/cover!important}
 .hk-food-overlay{padding:32px!important}
 .hk-food-overlay h3{font-size:34px!important}
 /* new process strip */
@@ -587,10 +587,10 @@ img{content-visibility:auto}
   </section>
 
   <section class="v3-gallery" aria-label="Homies Kit visual gallery">
-    <div class="v3-gallery-card"><img loading="lazy" decoding="async" src="images/spices.jpg" alt="Fresh spices and ingredients"><div class="v3-gallery-copy"><b>Ingredients with purpose</b><span>Organize the raw materials behind every recipe.</span></div></div>
-    <div class="v3-gallery-card"><img loading="lazy" decoding="async" src="images/maize.jpg" alt="Natural crops"><div class="v3-gallery-copy"><b>Natural crops</b><span>From source to product.</span></div></div>
+    <div class="v3-gallery-card"><img loading="lazy" decoding="async" src="images/spices.webp" alt="Fresh spices and ingredients"><div class="v3-gallery-copy"><b>Ingredients with purpose</b><span>Organize the raw materials behind every recipe.</span></div></div>
+    <div class="v3-gallery-card"><img loading="lazy" decoding="async" src="images/maize.webp" alt="Natural crops"><div class="v3-gallery-copy"><b>Natural crops</b><span>From source to product.</span></div></div>
     <div class="v3-gallery-card"><img loading="lazy" decoding="async" src="images/chef-kid.webp" alt="Food preparation"><div class="v3-gallery-copy"><b>Kitchen work</b><span>Make preparation repeatable.</span></div></div>
-    <div class="v3-gallery-card"><img loading="lazy" decoding="async" src="images/sunrise.jpg" alt="Fresh food business atmosphere"><div class="v3-gallery-copy"><b>Grow your business</b><span>Keep your process clear.</span></div></div>
+    <div class="v3-gallery-card"><img loading="lazy" decoding="async" src="images/sunrise.webp" alt="Fresh food business atmosphere"><div class="v3-gallery-copy"><b>Grow your business</b><span>Keep your process clear.</span></div></div>
   </section>
 
   <div class="health-strip hk-health"><span class="hs-label">Workspace health</span><span class="hs-item"><i class="status-dot"></i>Cloud data</span><span class="hs-item"><i class="status-dot"></i>Product library</span><span class="hs-item"><i class="status-dot"></i>Recipe engine</span><span class="hs-item"><i class="status-dot"></i>Access: <b id="healthRole" style="color:#39714a">Active</b></span></div>
@@ -718,12 +718,12 @@ async function loadProductsFromRemote(){
  }));
 }
 async function loadPricesFromRemote(){
- let {data, error} = await sbClient.from('ingredient_prices').select('*').order('name');
+ let {data, error} = await sbClient.from('ingredient_prices').select('id, name, tamil_name, unit, price, supplier, notes').order('name');
  if(error) return [];
  return (data||[]).map(x=>({id:x.id, name:x.name, tamilName:x.tamil_name||'', unit:x.unit, price:Number(x.price), supplier:x.supplier||'', notes:x.notes||''}));
 }
 async function loadExtraIngredientsFromRemote(){
- let {data, error} = await sbClient.from('extra_ingredients').select('*').order('name');
+ let {data, error} = await sbClient.from('extra_ingredients').select('id, name, unit, tamil_name, supplier, notes').order('name');
  if(error) return [];
  return (data||[]).map(x=>({id:x.id, name:x.name, unit:x.unit, tamilName:x.tamil_name||'', supplier:x.supplier||'', notes:x.notes||''}));
 }
@@ -740,7 +740,7 @@ async function remoteDeleteExtraIngredient(id){
  return true;
 }
 async function loadCostDefaultsFromRemote(){
- let {data, error} = await sbClient.from('production_costs').select('*');
+ let {data, error} = await sbClient.from('production_costs').select('product_id, labour, gas, packaging, transport, other, custom_costs');
  if(error) return {};
  let map={};
  (data||[]).forEach(row=>{
